@@ -9,10 +9,10 @@
           <router-link to="/dashboard" class="nav-link" active-class="active">
             <i class="fas fa-home"></i> Dashboard
           </router-link>
-          <router-link to="products" class="nav-link" active-class="active">
+          <router-link to="/dashboard/products" class="nav-link" active-class="active">
             <i class="fas fa-box"></i> Inventaris
           </router-link>
-          <router-link to="transactions" class="nav-link" active-class="active">
+          <router-link to="/dashboard/transactions" class="nav-link" active-class="active">
             <i class="fas fa-history"></i> Riwayat Transaksi
           </router-link>
           <router-link to="addStock" class="nav-link" active-class="active">
