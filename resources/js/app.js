@@ -6,17 +6,34 @@
 
 import './bootstrap';
 import { createApp } from 'vue';
+import router from './router';
+
+
+
+const app = createApp({});
+
+import LogPage from './components/LogPage.vue';
+import UserDashboard from './components/BaseLayoutComponent.vue';
+import MainDashboard from './components/MainDashboard.vue';
+import BaseLayout from './components/BaseLayoutComponent.vue';
+
+
+
+app.component('log_page',LogPage)
+app.component('user-dash', UserDashboard)
+app.component('main-dash', MainDashboard)
+app.component('base-layout', BaseLayout)
+
+
+
+app.use(router);
+app.mount('#app');
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
  * registering components with the application instance so they are ready
  * to use in your application's views. An example is included for you.
  */
-
-const app = createApp({});
-
-import ExampleComponent from './components/ExampleComponent.vue';
-app.component('example-component', ExampleComponent);
 
 /**
  * The following block of code may be used to automatically register your
@@ -36,4 +53,3 @@ app.component('example-component', ExampleComponent);
  * scaffolding. Otherwise, you will need to add an element yourself.
  */
 
-app.mount('#app');
