@@ -16,23 +16,24 @@ const routes = [
         path: '/dashboard',
         name: 'dashboard',
         component: UserDashboard,
+        redirect: 'MainDashboard',
         children: [
             {
                 path: '', // Route default untuk dashboard
                 name: 'MainDashboard',
                 component: MainDashboard
+            },
+            {
+                path: 'products', 
+                name: 'Inventaris', 
+                component: Inventaris
+            },
+            {
+                path: 'transactions',
+                name: 'Transaction',
+                component: Transaction
             }
         ]
-    },
-    {
-        path: '/products', 
-        name: 'Inventaris', 
-        component: Inventaris
-    },
-    {
-        path: '/transactions',
-        name: 'Transaction',
-        component: Transaction
     }
     // {
     //     path: '/addStock',

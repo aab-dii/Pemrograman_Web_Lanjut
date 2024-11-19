@@ -1,15 +1,14 @@
-<template>
+   <template>
     <div class="product-table">
-      <!-- Header untuk Nama Tabel dan Tombol -->
       <div class="table-header">
         <h2>Produk</h2>
         <div class="button-group">
-          <button @click="addProduct" class="btn-action tambah">Tambah Produk</button>
+          <button @click="openAddProductModal" class="btn-action tambah">Tambah Produk</button>
           <button @click="filterProducts" class="filter-button">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M5 10H15M2.5 5H17.5M7.5 15H12.5" stroke="#5D6679" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>Filter
-        </button>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 10H15M2.5 5H17.5M7.5 15H12.5" stroke="#5D6679" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>Filter
+          </button>
         </div>
       </div>
   
@@ -20,8 +19,8 @@
             <th>Kategori</th>
             <th>Harga</th>
             <th>Stok</th>
-            <th>Status</th>
-            <th class="text-right"></th> 
+            <th>Gambar</th>
+            <th class="text-right"></th>
           </tr>
         </thead>
         <tbody>
@@ -30,8 +29,8 @@
             <td class="text-center">{{ product.category }}</td>
             <td class="text-center">{{ product.price }}</td>
             <td class="text-center">{{ product.stock }}</td>
-            <td class="text-center">{{ product.status }}</td>
-            <td class="text-right"> 
+            <td class="text-center"><img :src="product.image" alt="Product Image" width="50"/></td>
+            <td class="text-right">
               <div class="btnaksi">
                 <button @click="editProduct(product)" class="btn-action ubah">Ubah</button>
                 <button @click="deleteProduct(product)" class="btn-action hapus">Hapus</button>
@@ -40,149 +39,193 @@
           </tr>
         </tbody>
       </table>
+  
+      <div class="pagination-controls">
+        <button @click="goToPreviousPage" :disabled="currentPage === 1">Previous</button>
+        <span>Halaman {{ currentPage }} dari {{ lastPage }}</span>
+        <button @click="goToNextPage" :disabled="currentPage === lastPage">Next</button>
+      </div>
+  
+      <ModalProduk
+        :isVisible="isModalVisible"
+        @close="closeModal"
+        @save="saveProduct"
+        @product-added="handleProductAdded"
+      />
     </div>
   </template>
   
   <script>
+  import axios from 'axios';
+  import ModalProduk from './ModalProduk.vue';
+  
   export default {
     name: 'ProductTable',
+    components: {
+      ModalProduk
+    },
     data() {
       return {
-        products: [
-          { id: 1, name: 'Mie Goreng Sedap', category: 'Makanan', price: 'Rp. 4500', stock: '43 Pcs', status: 'Tersedia' },
-          { id: 2, name: 'Beng-Beng', category: 'Makanan', price: 'Rp. 3500', stock: '0 Pcs', status: 'Habis' },
-          // Produk lainnya
-        ]
-      }
+        products: [],
+        currentPage: 1,
+        lastPage: 1,
+        isModalVisible: false,
+        productToEdit: null
+      };
+    },
+    mounted() {
+      this.fetchProducts();
     },
     methods: {
-      addProduct() {
-        console.log("Tambah produk baru");
-        // Logika untuk menambah produk baru
+      async fetchProducts() {
+        try {
+          const response = await axios.get(`http://localhost:8000/api/products?page=${this.currentPage}`);
+          if (response.data.success) {
+            this.products = response.data.data.data;
+            this.lastPage = response.data.data.last_page;
+          }
+        } catch (error) {
+          console.error('Error fetching products:', error);
+        }
+      },
+      openAddProductModal() {
+        this.productToEdit = null;
+        this.isModalVisible = true;
+      },
+      closeModal() {
+        this.isModalVisible = false;
+      },
+      handleProductAdded() {
+      this.closeModal();
+      this.fetchProducts();
+    },
+      async saveProduct(product) {
+        try {
+          if (this.productToEdit) {
+            // Update existing product
+            await axios.put(`http://localhost:8000/api/products/${this.productToEdit.id}`, product);
+          } else {
+            // Add new product
+            await axios.post('http://localhost:8000/api/products', product);
+          }
+          this.fetchProducts(); // Refresh the product list
+          this.closeModal();
+        } catch (error) {
+          console.error('Error saving product:', error);
+        }
       },
       filterProducts() {
         console.log("Filter produk");
-        // Logika untuk memfilter produk
       },
       editProduct(product) {
-        console.log("Edit product: ", product);
+        this.productToEdit = { ...product }; // Make a copy of the product
+        this.isModalVisible = true;
       },
-      deleteProduct(product) {
-        console.log("Delete product: ", product);
+      async deleteProduct(product) {
+        try {
+          await axios.delete(`http://localhost:8000/api/products/${product.id}`);
+          this.fetchProducts(); // Refresh the product list
+        } catch (error) {
+          console.error('Error deleting product:', error);
+        }
+      },
+      goToPreviousPage() {
+        if (this.currentPage > 1) {
+          this.currentPage--;
+          this.fetchProducts();
+        }
+      },
+      goToNextPage() {
+        if (this.currentPage < this.lastPage) {
+          this.currentPage++;
+          this.fetchProducts();
+        }
       }
     }
-  }
-
+  };
   </script>
-  
-  <style scoped>
-  .product-table {
-    height: 680px;
-    width: 1096px;
-    background-color: white; /* Latar belakang putih untuk tabel */
-    padding: 20px; /* Menambahkan padding di sekitar tabel */
-  }
-  
-  .table-header {
-    margin-left: 10px;
-    display: flex; /* Menggunakan flexbox untuk menyusun elemen secara horizontal */
-    justify-content: space-between; /* Menyusun elemen di antara header */
-    align-items: center; /* Memusatkan elemen secara vertikal */
-    margin-bottom: 15px; /* Jarak antara header dan tabel */
-  }
-  
-  h2 {
-    margin: 0; /* Menghilangkan margin default dari h2 */
-  }
 
-.tambah{
-    background-color: #007bff;
-  }
-.ubah{
-    background-color: #20D171;
+<style scoped>
+.product-table {
+ height: 680px;
+ width: 1096px;
+ background-color: white;
+ padding: 20px;
 }
 
-.hapus{
-    background-color: #FF0000;
+.table-header {
+ margin-left: 10px;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ margin-bottom: 15px;
 }
+
+h2 {
+ margin: 0;
+}
+
+.tambah { background-color: #007bff; }
+.ubah { background-color: #20D171; }
+.hapus { background-color: #FF0000; }
 
 .btn-action {
-  border-radius: 15%;
-  padding: 10px 20px;
-  color: white;
-  border: none;
-  cursor: pointer;
+ border-radius: 15%;
+ padding: 10px 20px;
+ color: white;
+ border: none;
+ cursor: pointer;
 }
 
-  .button-group{
-    display: flex;
-  }
-  
-  .button-group button {
-    margin-right: 10px; /* Jarak antara tombol */
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  thead {
-    background-color: #ffffff;
-  }
-  
-  th, td {
-    padding: 10px;
-    border: none;
-  }
+.button-group {
+ display: flex;
+}
 
-  .filter-button {
-  display: flex;
-  align-items: center;
-  gap: 5px; 
+.button-group button {
+ margin-right: 10px;
+}
+
+table {
+ width: 100%;
+ border-collapse: collapse;
+}
+
+thead {
+ background-color: #ffffff;
+}
+
+th, td {
+ padding: 10px;
+ border: none;
+}
+
+.filter-button {
+ display: flex;
+ align-items: center;
+ gap: 5px;
 }
 
 .filter-button svg {
-  vertical-align: middle;
+ vertical-align: middle;
 }
-  
+
 .btnaksi {
-    width: fit-content;
-    display: flex;
-    gap: 10px;
-    margin-left: auto;
+ width: fit-content;
+ display: flex;
+ gap: 10px;
+ margin-left: auto;
 }
 
-  .btnedit, .btnhapus{
-    font-size: 13px;
-    width: 80px;
-    height: 40px;
-  }
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
 
-  .btn-action {
-  padding: 5px 10px;
-  border-radius: 4px; /* Menambahkan border-radius 4px */
+tr {
+ border-bottom: 1px solid #ddd;
 }
-  
-  .text-left {
-    text-align: left; /* Mengatur agar teks pada kolom produk rata kiri */
-  }
-  
-  .text-center {
-    text-align: center; /* Mengatur agar teks pada kolom kategori, harga, stok, dan status rata tengah */
-  }
-  
-  .text-right {
-    text-align: right; /* Mengatur agar teks pada kolom aksi rata kanan */
-  }
-  
-  tr {
-    border-bottom: 1px solid #ddd; /* Menambahkan border hanya di bagian bawah */
-  }
-  
-  button {
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-  </style>
-  
+
+button {
+ padding: 5px 10px;
+ cursor: pointer;
+}
+</style>
