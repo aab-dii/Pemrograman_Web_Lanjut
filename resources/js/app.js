@@ -13,16 +13,16 @@ import router from './router';
 const app = createApp({});
 
 import LogPage from './components/LogPage.vue';
-import UserDashboard from './components/BaseLayoutComponent.vue';
+import DashboardKaryawan from './components/DashboardKaryawan.vue';
 import MainDashboard from './components/MainDashboard.vue';
-import BaseLayout from './components/BaseLayoutComponent.vue';
+import DashboardAdmin from './components/DashboardAdmin.vue';
 
 
 
 app.component('log_page',LogPage)
-app.component('user-dash', UserDashboard)
+app.component('user-dash', DashboardKaryawan)
 app.component('main-dash', MainDashboard)
-app.component('base-layout', BaseLayout)
+app.component('base-layout', DashboardAdmin)
 
 
 

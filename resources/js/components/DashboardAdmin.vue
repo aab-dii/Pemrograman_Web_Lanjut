@@ -21,8 +21,8 @@
           <router-link to="/confirm-transaction" class="nav-link" active-class="active">
             <i class="fas fa-exchange-alt"></i> Transaksi
           </router-link>
-          <router-link to="/table" class="nav-link" active-class="active">
-            <i class="fas fa-store"></i> Manage Store
+          <router-link to="/dashboard/users" class="nav-link" active-class="active">
+            <i class="fas fa-store"></i> Manage User
           </router-link>
         </nav>
         <div class="bottom-menu">
@@ -50,13 +50,33 @@
   </template>
   
   <script>
+  import axios from 'axios';
+  import login from './LogPage.vue'
+
   export default {
     name: 'DashboardLayout', // Nama yang direkomendasikan
     methods: {
-      handleLogout() {
-        this.$router.push('/login');
+  async handleLogout() { // Add async here
+    this.loading = true;
+    this.error = null;
+    try {
+      const response = await axios.post('http://localhost:8000/api/logout', {
+        email: '',
+        password: '',
+      });
+      if (response.data.success) {
+        // Redirect to login page
+        this.$router.push({ name: 'login' }); // Use a named route for redirection
+      } else {
+        this.error = response.data.message || 'Login failed, try again!';
       }
+    } catch (err) {
+      this.error = err.response?.data?.message || 'An error occurred. Please try again!';
+    } finally {
+      this.loading = false;
     }
+  }
+}
   }
   </script>
 

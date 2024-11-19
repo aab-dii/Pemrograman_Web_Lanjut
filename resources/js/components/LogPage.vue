@@ -36,6 +36,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'LoginPage',
   data() {
@@ -47,18 +48,63 @@ export default {
     };
   },
   methods: {
+    // async handleLogin() {
+    //   this.loading = true;
+    //   try {
+    //     setTimeout(() => {
+    //       this.loading = false;
+    //       this.$router.push({ name: 'dashboard' }); // Ganti dengan nama rute 'dashboard'
+    //     }, 1000);
+    //   } catch (error) {
+    //     this.loading = false;
+    //     this.error = 'Login gagal, coba lagi!';
+    //   }
+    // }
     async handleLogin() {
-      this.loading = true;
-      try {
-        setTimeout(() => {
-          this.loading = false;
-          this.$router.push({ name: 'dashboard' }); // Ganti dengan nama rute 'dashboard'
-        }, 1000);
-      } catch (error) {
-        this.loading = false;
-        this.error = 'Login gagal, coba lagi!';
+  this.loading = true;
+  this.error = null;
+
+  try {
+    const response = await axios.post('http://localhost:8000/api/login', {
+      email: this.email,
+      password: this.password,
+    });
+
+    // Validasi sukses login
+    if (response.data.success) {
+      const token = response.data.token;
+      const userRole = response.data.role;
+
+      if (!token || !userRole) {
+        throw new Error('Token atau role tidak ditemukan dalam respons.');
       }
+
+      // Simpan token ke localStorage
+      localStorage.setItem('token', token);
+
+      // Log user role untuk debugging
+      console.log(`User logged in with role: ${userRole}`);
+
+      // Redirect berdasarkan role
+      if (userRole === 'admin') {
+        this.$router.push({ name: 'dashboard' });
+        console.log("keadmin")
+      } else if (userRole === 'karyawan') {
+        this.$router.push({ name: 'KaryawanDashboard' });
+        console.log("kekaryawan")
+      } else {
+        throw new Error('Role tidak valid. Tidak dapat mengarahkan ke dashboard.');
+      }
+    } else {
+      this.error = response.data.message || 'Login gagal, coba lagi!';
     }
+  } catch (err) {
+    console.error('Login error:', err);
+    this.error = err.response?.data?.message || 'Terjadi kesalahan. Coba lagi!';
+  } finally {
+    this.loading = false;
+  }
+}
   }
 };
 </script>
