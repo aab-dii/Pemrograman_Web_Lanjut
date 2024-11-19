@@ -16,7 +16,7 @@ const routes = [
         path: '/dashboard',
         name: 'dashboard',
         component: UserDashboard,
-        redirect: 'MainDashboard',
+        redirect: {name: 'MainDashboard'},
         children: [
             {
                 path: '', // Route default untuk dashboard
