@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
-use App\Http\Resources\TransactionsResource;
+use App\Http\Resources\TransactionResource;
 use Illuminate\Support\Facades\Validator;
 
 class TransactionController extends Controller
@@ -18,7 +18,7 @@ class TransactionController extends Controller
     public function index()
     {
         $transactions = Transaction::latest()->paginate(5);
-        return new TransactionsResource(true, 'List Data Transactions', $transactions);
+        return new TransactionResource(true, 'List Data Transactions', $transactions);
     }
 
     /**
@@ -49,7 +49,7 @@ class TransactionController extends Controller
             'user_id'          => $request->user_id,
         ]);
 
-        return new TransactionsResource(true, 'Data Transaction Berhasil Ditambahkan!', $transaction);
+        return new TransactionResource(true, 'Data Transaction Berhasil Ditambahkan!', $transaction);
     }
 
     /**
@@ -64,7 +64,7 @@ class TransactionController extends Controller
         if (!$transaction) {
             return response()->json(['error' => 'Transaction not found'], 404);
         }
-        return new TransactionsResource(true, 'Detail Data Transaction!', $transaction);
+        return new TransactionResource(true, 'Detail Data Transaction!', $transaction);
     }
 
     /**
@@ -101,7 +101,7 @@ class TransactionController extends Controller
             'user_id'          => $request->user_id,
         ]);
 
-        return new TransactionsResource(true, 'Data Transaction Berhasil Diupdate!', $transaction);
+        return new TransactionResource(true, 'Data Transaction Berhasil Diupdate!', $transaction);
     }
 
     /**
@@ -118,7 +118,7 @@ class TransactionController extends Controller
         }
 
         $transaction->delete();
-        return new TransactionsResource(true, 'Data Transaction Berhasil Dihapus!', null);
+        return new TransactionResource(true, 'Data Transaction Berhasil Dihapus!', null);
     }
 }
 

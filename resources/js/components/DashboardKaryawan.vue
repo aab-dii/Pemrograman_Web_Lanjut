@@ -15,7 +15,7 @@
           <router-link to="/dashboard/transactions" class="nav-link" active-class="active">
             <i class="fas fa-history"></i> Riwayat Transaksi
           </router-link>
-          <router-link to="addStock" class="nav-link" active-class="active">
+          <router-link to="/dashboard/addStock" class="nav-link" active-class="active">
             <i class="fas fa-plus-circle"></i> Tambah Stok
           </router-link>
         </nav>

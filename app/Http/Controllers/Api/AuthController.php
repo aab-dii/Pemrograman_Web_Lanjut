@@ -26,6 +26,8 @@ class AuthController extends Controller
                 'success' => true,
                 'token' => $token,
                 'role' => $user->role,
+                'email' => $user->email,
+                'id' => $user->id,
             ]);
         }
 
