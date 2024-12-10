@@ -31,7 +31,6 @@
           </a>
         </div>
       </aside>
-        
       <main class="content">
         <header>
           <div class="search-bar">
@@ -39,24 +38,22 @@
             <input type="text" placeholder="Search product, supplier, order" />
           </div>
           <div class="user-menu">
-            <i class="fas fa-bell"></i>
-            <img src="../assets/avatar.jpg" alt="User Avatar" class="avatar" />
+            <Span class="user-name">{{ nama }}</Span>
           </div>
         </header>
-        
         <router-view></router-view>
       </main>
     </div>
   </template>
   
   <script>
-  import axios from 'axios';
-  import login from './LogPage.vue'
 
   export default {
     name: 'DashboardLayout', // Nama yang direkomendasikan
     methods: {
-
+      getNama(){
+        const nama = localStorage.getItem('name')
+      },
       handleLogout() {
       // Clear local data (e.g., token or user information)
       localStorage.clear(); // or sessionStorage if you use session

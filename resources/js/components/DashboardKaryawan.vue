@@ -30,8 +30,7 @@
           <input type="text" placeholder="Search product, supplier, order" />
         </div>
         <div class="user-menu">
-          <i class="fas fa-bell"></i>
-          <Span class="user-name">USERNAME</Span>
+          <Span class="user-name">{{ nama }}</Span>
         </div>
       </header>
       
@@ -44,9 +43,16 @@
 import login from './LogPage.vue'
 
 export default {
-  name: 'DashboardKaryawan', // Nama yang direkomendasikan
+  name: 'DashboardKaryawan',
+  computed: {
+    nama() {
+      return localStorage.getItem("name") || "Nama tidak tersedia";
+    },
+  }, 
   methods: {
-
+    getNama(){
+        const nama = localStorage.getItem('name')
+      },
     handleLogout() {
       // Clear local data (e.g., token or user information)
       localStorage.clear(); // or sessionStorage if you use session

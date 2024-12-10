@@ -57,7 +57,7 @@ const routes = [
       path: '/karyawan/dashboard',
       name: 'KaryawanDashboard',
       component: KaryawanDashboard,
-      redirect: { name: 'KaryawanMainDashboard' },
+    //   redirect: { name: 'KaryawanMainDashboard' },
       children: [
         {
           path: '',

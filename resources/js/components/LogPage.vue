@@ -5,10 +5,13 @@
         <img src="../assets/logo_toko_dewi_login.jpg" alt="Store Icon" width="100" height="100" />
       </div>
       <p class="description">
-        Selamat datang di <strong>Toko Dewi</strong>, destinasi pilihan untuk kebutuhan sehari-hari Anda. Kami menyediakan berbagai macam produk berkualitas yang dapat memenuhi setiap kebutuhan Anda, mulai dari fashion, elektronik, hingga kebutuhan rumah tangga.
+        Selamat datang di <strong>Toko Dewi</strong>, destinasi pilihan untuk kebutuhan sehari-hari Anda. Kami
+        menyediakan berbagai macam produk berkualitas yang dapat memenuhi setiap kebutuhan Anda, mulai dari fashion,
+        elektronik, hingga kebutuhan rumah tangga.
       </p>
       <p class="additional-info">
-        Temukan kenyamanan berbelanja online dengan mudah dan aman bersama kami. Jangan ragu untuk menjelajahi katalog produk kami, dan nikmati berbagai promo menarik yang selalu kami tawarkan.
+        Temukan kenyamanan berbelanja online dengan mudah dan aman bersama kami. Jangan ragu untuk menjelajahi katalog
+        produk kami, dan nikmati berbagai promo menarik yang selalu kami tawarkan.
       </p>
     </div>
     <div class="right-column">
@@ -61,66 +64,53 @@ export default {
     //   }
     // }
     async handleLogin() {
-  this.loading = true;
-  this.error = null;
+      this.loading = true;
+      this.error = null;
 
-  try {
-    const response = await axios.post('http://localhost:8000/api/login', {
-      email: this.email,
-      password: this.password,
-    });
+      try {
+        const response = await axios.post('http://localhost:8000/api/login', {
+          email: this.email,
+          password: this.password,
+        });
 
-    // Validasi sukses login
-    if (response.data.success) {
-      const token = response.data.token;
-      const userRole = response.data.role;
-      const userEmail = response.data.email;
-      const id = response.data.id;
-      const name = response.data.name;
+        // Validasi sukses login
+        if (response.data.success) {
+          const token = response.data.token;
+          const userRole = response.data.role;
+          const userEmail = response.data.email;
+          const id = response.data.id;
+          const name = response.data.name;
 
-      if (!token || !userRole) {
-        throw new Error('Token atau role tidak ditemukan dalam respons.');
+          if (!token || !userRole) {
+            throw new Error('Token atau role tidak ditemukan dalam respons.');
+          }
+
+          localStorage.setItem('token', token);
+          localStorage.setItem('email', userEmail);
+          localStorage.setItem('id', id);
+          localStorage.setItem('name', name);
+
+          console.log(`User logged in with role: ${userRole}`);
+          if (userRole === 'admin') {
+            this.$router.push({ path: '/admin/dashboard' });
+            console.log('keadmin');
+          } else if (userRole === 'karyawan') {
+            this.$router.push({ path: '/karyawan/dashboard' });
+            console.log('kekaryawan');
+          } else {
+            throw new Error('Role tidak valid. Tidak dapat mengarahkan ke dashboard.');
+          }
+
+        } else {
+          this.error = response.data.message || 'Login gagal, coba lagi!';
+        }
+      } catch (err) {
+        console.error('Login error:', err);
+        this.error = err.response?.data?.message || 'Terjadi kesalahan. Coba lagi!';
+      } finally {
+        this.loading = false;
       }
-
-      // Simpan token ke localStorage
-      localStorage.setItem('token', token);
-      localStorage.setItem('email', userEmail);
-      localStorage.setItem('id', id);
-      localStorage.setItem('name', name);
-
-      // Log user role untuk debugging
-      console.log(`User logged in with role: ${userRole}`);
-
-      // Redirect berdasarkan role
-      // if (userRole === 'admin') {
-      //   this.$router.push({ name: 'dashboard' });
-      //   console.log("keadmin")
-      // } else if (userRole === 'karyawan') {
-      //   this.$router.push({ name: 'KaryawanDashboard' });
-      //   console.log("kekaryawan")
-      // } else {
-      //   throw new Error('Role tidak valid. Tidak dapat mengarahkan ke dashboard.');
-      // }
-      if (userRole === 'admin') {
-  this.$router.push({ path: '/admin/dashboard' });
-  console.log('keadmin');
-} else if (userRole === 'karyawan') {
-  this.$router.push({ path: '/karyawan/dashboard' });
-  console.log('kekaryawan');
-} else {
-  throw new Error('Role tidak valid. Tidak dapat mengarahkan ke dashboard.');
-}
-
-    } else {
-      this.error = response.data.message || 'Login gagal, coba lagi!';
     }
-  } catch (err) {
-    console.error('Login error:', err);
-    this.error = err.response?.data?.message || 'Terjadi kesalahan. Coba lagi!';
-  } finally {
-    this.loading = false;
-  }
-}
   }
 };
 </script>
@@ -277,6 +267,7 @@ h1 {
     opacity: 0;
     transform: translateY(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
