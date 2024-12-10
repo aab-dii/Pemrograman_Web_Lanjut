@@ -7,85 +7,7 @@ import Transaction from '../components/TransactionComponent.vue';
 import AddStock from "../components/AddStockComponent.vue";
 import User from '../components/ManageUserComponent.vue';
 import KaryawanDashboard from '../components/DashboardKaryawan.vue';
-// import AddStock from '../components/AddStockComponent.vue';
-
-// const routes = [
-//     {
-//         path: '/',
-//         name: 'LogPage',
-//         component: LogPage
-//     },
-//     {
-//         path: '/dashboard',
-//         name: 'dashboard',
-//         component: AdminDashboard,
-//         redirect: {name: 'MainDashboard'},
-//         children: [
-//             {
-//                 path: '', // Route default untuk dashboard
-//                 name: 'MainDashboard',
-//                 component: MainDashboard
-//             },
-//             {
-//                 path: 'products', 
-//                 name: 'Inventaris', 
-//                 component: Inventaris
-//             },
-//             {
-//                 path: 'transactions',
-//                 name: 'Transaction',
-//                 component: Transaction
-//             },
-//             {
-//                 path: 'addStock', 
-//                 name: 'AddStock', 
-//                 component: AddStock
-//             },
-//             {
-//                 path: 'users',
-//                 name:  'User',
-//                 component: User
-//             }
-//         ]
-//     },{
-//         path: '/dashboard',
-//         name: 'KaryawanDashboard',
-//         component: KaryawanDashboard,
-//         redirect: {name: 'MainDashboard'},
-//         children: [
-//             {
-//                 path: '', // Route default untuk dashboard
-//                 name: 'MainDashboard',
-//                 component: MainDashboard
-//             },
-//             {
-//                 path: 'products', 
-//                 name: 'Inventaris', 
-//                 component: Inventaris
-//             },
-//             {
-//                 path: 'transactions',
-//                 name: 'Transaction',
-//                 component: Transaction
-//             },
-//             {
-//                 path: 'addStock', 
-//                 name: 'AddStock', 
-//                 component: AddStock
-//             }
-//             // {
-//             //     path: 'users',
-//             //     name:  'User',
-//             //     component: User
-//             // }
-//         ]
-//     }
-//     // {
-//     //     path: '/addStock',
-//     //     name: 'AddStock',
-//     //     component: AddStock
-//     // }
-// ];
+import HistoryTransaction from '../components/HistoryTransactionComponent.vue';
 
 const routes = [
     {
@@ -118,6 +40,11 @@ const routes = [
           path: 'addStock',
           name: 'AddStock',
           component: AddStock,
+        },
+        {
+          path: 'HistoryTransaction',
+          name: 'HistoryTransaction',
+          component: HistoryTransaction,
         },
         {
           path: 'users',

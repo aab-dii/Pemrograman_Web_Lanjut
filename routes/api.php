@@ -20,6 +20,7 @@ Route::get('/best-sellers', [DashboardController::class, 'getBestSellers']);
 Route::get('/total-penjualan', [DashboardController::class, 'getTotalPenjualan']);
 Route::get('/total-products', [DashboardController::class, 'getTotalProducts']);
 Route::get('/out-of-stock-products', [DashboardController::class, 'getOutOfStockProducts']);
+Route::get('/getTransactions', [DashboardController::class, 'getTransactions']);
 
 //posts
 Route::apiResource('/posts', PostController::class);

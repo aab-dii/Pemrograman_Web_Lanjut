@@ -13,13 +13,13 @@
             <i class="fas fa-box"></i> Inventaris
           </router-link>
           <router-link to="/admin/dashboard/transactions" class="nav-link" active-class="active">
-            <i class="fas fa-history"></i> Riwayat Transaksi
+            <i class="fas fa-history"></i> Transaksi
           </router-link>
           <router-link to="/admin/dashboard/addStock" class="nav-link" active-class="active">
             <i class="fas fa-plus-circle"></i> Tambah Stok
           </router-link>
-          <router-link to="/admin/dashboard/confirm-transaction" class="nav-link" active-class="active">
-            <i class="fas fa-exchange-alt"></i> Transaksi
+          <router-link to="/admin/dashboard/HistoryTransaction" class="nav-link" active-class="active">
+            <i class="fas fa-exchange-alt"></i>Riwayat Transaksi
           </router-link>
           <router-link to="/admin/dashboard/users" class="nav-link" active-class="active">
             <i class="fas fa-store"></i> Manage User

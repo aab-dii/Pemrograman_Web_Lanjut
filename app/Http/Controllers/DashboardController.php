@@ -67,4 +67,26 @@ class DashboardController extends Controller
 
         return response()->json($outOfStockProducts);
     }
+
+    public function getTransactions()
+    {
+        $transactions = DB::table('transactions as t')
+            ->join('users as u', 't.user_id', '=', 'u.id')
+            ->join('products as p', 't.product_id', '=', 'p.id')
+            ->select(
+                't.id',
+                'p.name as product_name',
+                't.transaction_type',
+                't.quantity',
+                't.date',
+                'u.email as user_email'
+            )
+            ->orderBy('t.date', 'desc')
+            ->paginate(10);
+    
+        return response()->json([
+            'success' => true,
+            'data' => $transactions
+        ]);
+    }
 }

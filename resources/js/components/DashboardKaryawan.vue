@@ -9,11 +9,8 @@
         <router-link to="/karyawan/dashboard" class="nav-link" active-class="active">
           <i class="fas fa-home"></i> Dashboard
         </router-link>
-        <!-- <router-link to="/dashboard/products" class="nav-link" active-class="active">
-          <i class="fas fa-box"></i> Inventaris
-        </router-link> -->
         <router-link to="/karyawan/dashboard/transactions" class="nav-link" active-class="active">
-          <i class="fas fa-history"></i> Riwayat Transaksi
+          <i class="fas fa-history"></i> Transaksi
         </router-link>
         <router-link to="/karyawan/dashboard/addStock" class="nav-link" active-class="active">
           <i class="fas fa-plus-circle"></i> Tambah Stok
