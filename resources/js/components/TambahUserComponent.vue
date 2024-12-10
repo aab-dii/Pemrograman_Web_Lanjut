@@ -40,7 +40,7 @@
             />
           </div>
   
-          <div class="form-group">
+          <div class="form-group role">
             <label for="role">Role</label>
             <select id="role" v-model="role">
               <option value="">Pilih Role</option>
@@ -48,6 +48,7 @@
               <option value="Karyawan">Karyawan</option>
             </select>
           </div>
+
         </div>
         <div class="modal-footer">
           <button class="cancel-btn" @click="closeModal" :disabled="loading">
@@ -87,18 +88,15 @@
         this.$emit('close');
       },
       async addUser() {
-        // Validasi input
         if (!this.name || !this.email || !this.password || !this.role) {
           alert('Harap isi semua field');
           return;
         }
   
-        // Set loading state
         this.loading = true;
         this.error = null;
   
         try {
-          // Kirim data ke backend
           const response = await axios.post('/api/users', {
             name: this.name,
             email: this.email,
@@ -167,8 +165,20 @@
     border: none;
     cursor: pointer;
   }
+
+  .form-group input{
+    width: 300px;
+    height: 40px;
+  }
   
+  .form-group select{
+    width: 300px;
+    height: 40px;
+  }
+
   .form-group {
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 20px;
   }
   

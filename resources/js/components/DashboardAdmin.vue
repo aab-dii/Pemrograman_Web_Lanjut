@@ -56,9 +56,6 @@ export default {
     },
   },
   methods: {
-    getNama() {
-      const nama = localStorage.getItem('name')
-    },
     handleLogout() {
       // Clear local data (e.g., token or user information)
       localStorage.clear(); // or sessionStorage if you use session

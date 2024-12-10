@@ -111,7 +111,6 @@ export default {
       this.isModalVisible = false;
     },
 
-    // Mengubah format tanggal ke MySQL Y-m-d H:i:s
     formatDate(date) {
       const d = new Date(date);
       const year = d.getFullYear();
