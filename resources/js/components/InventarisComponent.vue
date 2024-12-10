@@ -4,11 +4,6 @@
       <h2>Produk</h2>
       <div class="button-group">
         <button @click="openAddProductModal" class="btn-action tambah">Tambah Produk</button>
-        <button @click="filterProducts" class="filter-button">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M5 10H15M2.5 5H17.5M7.5 15H12.5" stroke="#5D6679" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>Filter
-        </button>
       </div>
     </div>
 
@@ -25,8 +20,8 @@
       </thead>
       <tbody>
         <tr v-for="product in products" :key="product.id">
-          <td class="text-center"><img :src="product.image" alt="Product Image" width="50"/></td>
-          <td class="text-left">{{ product.name }}</td>
+          <td class="text-left"><img :src="product.image" alt="Product Image" width="50"/></td>
+          <td class="text-center">{{ product.name }}</td>
           <td class="text-center">{{ product.category }}</td>
           <td class="text-center">{{ product.price }}</td>
           <td class="text-center">{{ product.stock }}</td>
@@ -170,7 +165,7 @@ margin: 0;
 .hapus { background-color: #FF0000; }
 
 .btn-action {
-border-radius: 8%;
+border-radius: 10px;
 padding: 10px 20px;
 color: white;
 border: none;

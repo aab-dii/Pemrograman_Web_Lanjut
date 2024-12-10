@@ -10,22 +10,11 @@
           </button>
         </div>
         <div class="modal-body">
-          <div class="form-group">
+          <div class="form-group img">
             <label for="image">Gambar Produk</label>
             <div class="image-upload">
-              <label for="image" class="upload-btn">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M4 15V21H20V15M12 9L6 15M12 9L18 15" stroke="#5D6679" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-                <span>Upload Gambar</span>
-              </label>
-              <input
-                type="file"
-                id="image"
-                @change="handleFileUpload"
-                accept="image/jpeg,image/png,image/jpg,image/gif,image/svg"
-              />
               <img v-if="imagePreview" :src="imagePreview" class="image-preview" />
+              <input class="inputimg" type="file" id="image" @change="handleFileUpload" accept="image/jpeg,image/png,image/jpg,image/gif,image/svg"/>
             </div>
           </div>
   
@@ -57,16 +46,6 @@
               placeholder="Masukkan harga produk"
             />
           </div>
-  
-          <!-- <div class="form-group">
-            <label for="quantity">Stok</label>
-            <input disabled
-              type="number"
-              id="quantity"
-              v-model="stock"
-              placeholder="Masukkan jumlah stok"
-            />
-          </div> -->
         </div>
         <div class="modal-footer">
           <button class="cancel-btn" @click="closeModal" :disabled="loading">Batal</button>
@@ -209,7 +188,38 @@
     flex-direction: column;
     align-items: center;
   }
+
+  .form-group input .inputimg{
+    margin-top: 20px;
+    width: 88px;
+    background-color: #007BFF;
+  }
   
+  .image-upload input[type="file"] {
+  width: 88px;
+  margin-top: 20px  ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+  .form-group {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 20px;
+  }
+
+  .form-group input{
+  width: 300px;
+  height: 40px;
+ }
+
+  .img{
+    display: flex;
+    flex-direction: column;
+  }
+
   .upload-btn {
     display: flex;
     align-items: center;
@@ -218,6 +228,11 @@
     padding: 10px 16px;
     border-radius: 8px;
     cursor: pointer;
+  }
+
+  #category{
+    width: 300px;
+    height: 40px;
   }
   
   .image-preview {
@@ -238,7 +253,7 @@
   }
   
   .cancel-btn,
-  .add-btn {
+  .update-btn {
     padding: 10px 16px;
     border-radius: 8px;
     font-size: 16px;
@@ -251,11 +266,12 @@
     border: none;
   }
   
-  .add-btn {
+  .update-btn {
     background-color: #007BFF;
     color: white;
     border: none;
   }
+  
   
   button:disabled {
     opacity: 0.5;

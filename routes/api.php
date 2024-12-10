@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\ProductsController;
+use App\Http\Controllers\Api\TransactionProductsController;
 use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UsersController;
@@ -23,6 +24,7 @@ Route::get('/out-of-stock-products', [DashboardController::class, 'getOutOfStock
 //posts
 Route::apiResource('/posts', PostController::class);
 Route::apiResource('/products', ProductsController::class);
+Route::get('productsTransactions', [TransactionProductsController::class, 'index']);
 Route::apiResource('/transactions', TransactionController::class);
 Route::apiResource('/users', UsersController::class);
 Route::post('/login', [AuthController::class, 'login']);

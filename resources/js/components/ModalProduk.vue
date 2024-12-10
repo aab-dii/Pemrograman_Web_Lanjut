@@ -13,14 +13,8 @@
           <div class="form-group">
             <div class="image-wrap">
             <div class="image-upload">
-              <label for="image" class="upload-btn">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M4 15V21H20V15M12 9L6 15M12 9L18 15" stroke="#5D6679" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span>Upload Gambar</span>
-              </label>
-              <input type="file" id="image" @change="handleFileUpload" accept="image/*" />
               <img v-if="imagePreview" :src="imagePreview" class="image-preview" />
+              <input type="file" id="image" @change="handleFileUpload" accept="image/*" />
             </div>
           </div>
           </div>
@@ -34,7 +28,7 @@
             />
           </div>
   
-          <div class="form-group">
+          <div class="form-group kategori">
             <label for="category">Kategori</label>
             <select id="category" v-model="category">
               <option value="">Pilih Kategori</option>
@@ -137,18 +131,11 @@
               'Content-Type': 'multipart/form-data'
             }
           });
-  
-          // Emit event ke parent component dengan data produk yang baru dibuat
           this.$emit('product-added', response.data.data);
-  
-          // Reset form
           this.resetForm();
-  
-          // Tampilkan pesan sukses (opsional)
           alert('Produk berhasil ditambahkan');
   
         } catch (error) {
-          // Tangani error
           console.error('Error adding product:', error);
           
           // Tampilkan pesan error
@@ -200,13 +187,6 @@
     align-items: center;
     z-index: 9999;
   }
-  
-  .image-wrap{
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    background-color: #007BFF;
-  }
 
   .modal-content {
     background-color: white;
@@ -235,18 +215,45 @@
     justify-content: space-between;
   }
   
-  /* .image-upload {
-    background-color: #007BFF;
+  #category{
+    width: 300px;
+    height: 40px;
+  }
+
+  .image-wrap {
+  display: flex;
+  flex-direction: column; /* Mengatur elemen vertikal */
+  align-items: center; /* Menjaga elemen tetap di tengah */
+  gap: 10px; /* Jarak antara input dan gambar */
+  width: 100%; /* Menyesuaikan lebar penuh */
+}
+
+.image-upload input[type="file"] {
+  width: 88px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-preview {
+  max-width: 100%; /* Menyesuaikan ukuran gambar agar tidak terlalu besar */
+  max-height: 300px; /* Membatasi tinggi gambar */
+  object-fit: contain; /* Menjaga proporsi gambar */
+  border: 1px solid #ccc; /* Memberikan border untuk memperjelas area gambar */
+  border-radius: 8px; 
+}
+
+  .form-group .image-upload{
     display: flex;
     justify-content: center;
     flex-direction: column;
-    align-items: center;
-  } */
-  
+  }
+
   .upload-btn {
     display: flex;
     align-items: center;
     gap: 8px;
+    height: 150px;
     background-color: #F4F5F7;
     padding: 10px 16px;
     border-radius: 8px;
@@ -267,6 +274,11 @@
   margin-bottom: 20px;
 }
 
+ .form-group input{
+  width: 300px;
+  height: 40px;
+ }
+
 .image-upload {
   display: flex;
   flex-direction: row; /* Arahkan elemen secara vertikal */
@@ -275,7 +287,6 @@
   gap: 10px; /* Tambahkan jarak antar elemen */
 }
 
-  
   .modal-footer {
     display: flex;
     justify-content: flex-end;
