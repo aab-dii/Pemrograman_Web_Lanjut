@@ -29,7 +29,7 @@ class DashboardController extends Controller
             WHERE t.transaction_type = "penjualan"
             GROUP BY p.id
             ORDER BY total_terjual DESC
-            LIMIT 1
+            LIMIT 5
         ');
 
         return response()->json($bestSellers);
