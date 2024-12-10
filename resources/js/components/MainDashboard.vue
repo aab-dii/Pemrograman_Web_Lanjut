@@ -122,13 +122,9 @@
 
 <script>
 import axios from 'axios';
-import BarChart from './BarChart.vue';
 
 export default {
   name: 'DashboardOverview',
-  components: {
-    BarChart
-  },
   data() {
     return {
       chartData: {

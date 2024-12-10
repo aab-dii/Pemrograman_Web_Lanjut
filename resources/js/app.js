@@ -17,14 +17,10 @@ import DashboardKaryawan from './components/DashboardKaryawan.vue';
 import MainDashboard from './components/MainDashboard.vue';
 import DashboardAdmin from './components/DashboardAdmin.vue';
 
-
-
 app.component('log_page',LogPage)
-app.component('user-dash', DashboardKaryawan)
-app.component('main-dash', MainDashboard)
-app.component('base-layout', DashboardAdmin)
-
-
+// app.component('user-dash', DashboardKaryawan)
+// app.component('main-dash', MainDashboard)
+// app.component('base-layout', DashboardAdmin)
 
 app.use(router);
 app.mount('#app');

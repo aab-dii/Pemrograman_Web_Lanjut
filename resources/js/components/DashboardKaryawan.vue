@@ -22,7 +22,7 @@
         </a>
       </div>
     </aside>
-      
+
     <main class="content">
       <header>
         <div class="search-bar">
@@ -33,7 +33,7 @@
           <Span class="user-name">{{ nama }}</Span>
         </div>
       </header>
-      
+
       <router-view></router-view>
     </main>
   </div>
@@ -48,11 +48,11 @@ export default {
     nama() {
       return localStorage.getItem("name") || "Nama tidak tersedia";
     },
-  }, 
+  },
   methods: {
-    getNama(){
-        const nama = localStorage.getItem('name')
-      },
+    getNama() {
+      const nama = localStorage.getItem('name')
+    },
     handleLogout() {
       // Clear local data (e.g., token or user information)
       localStorage.clear(); // or sessionStorage if you use session
@@ -60,13 +60,13 @@ export default {
 
       // Redirect to the login page or homepage
       this.$router.push({ name: 'LogPage' }); // or to the homepage route if necessary
-            // Prevent back navigation (replace the history state so the user cannot go back)
+      // Prevent back navigation (replace the history state so the user cannot go back)
       window.history.pushState(null, '', window.location.href);
       window.onpopstate = function () {
         window.history.go(1); // Forcing the browser to go forward, preventing backward navigation
       };
     }
-}
+  }
 }
 </script>
 
@@ -153,7 +153,7 @@ header {
   background-color: #ffffff;
   padding: 15px 20px;
   border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .search-bar {
@@ -183,7 +183,7 @@ header {
   gap: 20px;
 }
 
-.user-name{
+.user-name {
   font-weight: bold;
 }
 
@@ -194,12 +194,15 @@ header {
   object-fit: cover;
 }
 
-.product-overview, .chart, .best-sellers, .low-stock {
+.product-overview,
+.chart,
+.best-sellers,
+.low-stock {
   background-color: #ffffff;
   border-radius: 10px;
   padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .stats {
@@ -240,7 +243,8 @@ table {
   margin-top: 15px;
 }
 
-th, td {
+th,
+td {
   padding: 12px;
   text-align: left;
   border-bottom: 1px solid #eee;

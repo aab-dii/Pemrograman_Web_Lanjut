@@ -92,10 +92,10 @@ export default {
 
           console.log(`User logged in with role: ${userRole}`);
           if (userRole === 'admin') {
-            this.$router.push({ path: '/admin/dashboard' });
+            this.$router.replace({ path: '/admin/dashboard' });
             console.log('keadmin');
           } else if (userRole === 'karyawan') {
-            this.$router.push({ path: '/karyawan/dashboard' });
+            this.$router.replace({ path: '/karyawan/dashboard' });
             console.log('kekaryawan');
           } else {
             throw new Error('Role tidak valid. Tidak dapat mengarahkan ke dashboard.');

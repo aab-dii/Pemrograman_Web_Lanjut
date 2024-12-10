@@ -8,11 +8,7 @@
 </head>
 <body>
     <div id="app">
-        <!-- <log_page></log_page> -->
         <router-view></router-view>
-         <!-- <main-dash></main-dash>
-         <base-layout></base-layout> -->
-        <!-- <user-dash></user-dash> -->
     </div>
 </body>
 </html>
