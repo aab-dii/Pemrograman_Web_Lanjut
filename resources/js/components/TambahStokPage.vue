@@ -224,7 +224,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 1.5rem;
+    margin-top: 10px;
   }
   
   .btn-pagination {
