@@ -9,83 +9,153 @@ import User from '../components/ManageUserComponent.vue';
 import KaryawanDashboard from '../components/DashboardKaryawan.vue';
 // import AddStock from '../components/AddStockComponent.vue';
 
+// const routes = [
+//     {
+//         path: '/',
+//         name: 'LogPage',
+//         component: LogPage
+//     },
+//     {
+//         path: '/dashboard',
+//         name: 'dashboard',
+//         component: AdminDashboard,
+//         redirect: {name: 'MainDashboard'},
+//         children: [
+//             {
+//                 path: '', // Route default untuk dashboard
+//                 name: 'MainDashboard',
+//                 component: MainDashboard
+//             },
+//             {
+//                 path: 'products', 
+//                 name: 'Inventaris', 
+//                 component: Inventaris
+//             },
+//             {
+//                 path: 'transactions',
+//                 name: 'Transaction',
+//                 component: Transaction
+//             },
+//             {
+//                 path: 'addStock', 
+//                 name: 'AddStock', 
+//                 component: AddStock
+//             },
+//             {
+//                 path: 'users',
+//                 name:  'User',
+//                 component: User
+//             }
+//         ]
+//     },{
+//         path: '/dashboard',
+//         name: 'KaryawanDashboard',
+//         component: KaryawanDashboard,
+//         redirect: {name: 'MainDashboard'},
+//         children: [
+//             {
+//                 path: '', // Route default untuk dashboard
+//                 name: 'MainDashboard',
+//                 component: MainDashboard
+//             },
+//             {
+//                 path: 'products', 
+//                 name: 'Inventaris', 
+//                 component: Inventaris
+//             },
+//             {
+//                 path: 'transactions',
+//                 name: 'Transaction',
+//                 component: Transaction
+//             },
+//             {
+//                 path: 'addStock', 
+//                 name: 'AddStock', 
+//                 component: AddStock
+//             }
+//             // {
+//             //     path: 'users',
+//             //     name:  'User',
+//             //     component: User
+//             // }
+//         ]
+//     }
+//     // {
+//     //     path: '/addStock',
+//     //     name: 'AddStock',
+//     //     component: AddStock
+//     // }
+// ];
+
 const routes = [
     {
-        path: '/',
-        name: 'LogPage',
-        component: LogPage
+      path: '/',
+      name: 'LogPage',
+      component: LogPage,
     },
     {
-        path: '/dashboard',
-        name: 'dashboard',
-        component: AdminDashboard,
-        redirect: {name: 'MainDashboard'},
-        children: [
-            {
-                path: '', // Route default untuk dashboard
-                name: 'MainDashboard',
-                component: MainDashboard
-            },
-            {
-                path: 'products', 
-                name: 'Inventaris', 
-                component: Inventaris
-            },
-            {
-                path: 'transactions',
-                name: 'Transaction',
-                component: Transaction
-            },
-            {
-                path: 'addStock', 
-                name: 'AddStock', 
-                component: AddStock
-            },
-            {
-                path: 'users',
-                name:  'User',
-                component: User
-            }
-        ]
-    },{
-        path: '/dashboard',
-        name: 'KaryawanDashboard',
-        component: KaryawanDashboard,
-        redirect: {name: 'MainDashboard'},
-        children: [
-            {
-                path: '', // Route default untuk dashboard
-                name: 'MainDashboard',
-                component: MainDashboard
-            },
-            {
-                path: 'products', 
-                name: 'Inventaris', 
-                component: Inventaris
-            },
-            {
-                path: 'transactions',
-                name: 'Transaction',
-                component: Transaction
-            },
-            {
-                path: 'addStock', 
-                name: 'AddStock', 
-                component: AddStock
-            },
-            {
-                path: 'users',
-                name:  'User',
-                component: User
-            }
-        ]
-    }
-    // {
-    //     path: '/addStock',
-    //     name: 'AddStock',
-    //     component: AddStock
-    // }
-];
+      path: '/admin/dashboard',
+      name: 'AdminDashboard',
+      component: AdminDashboard,
+      redirect: { name: 'MainDashboard' },
+      children: [
+        {
+          path: '',
+          name: 'MainDashboard',
+          component: MainDashboard,
+        },
+        {
+          path: 'products',
+          name: 'Inventaris',
+          component: Inventaris,
+        },
+        {
+          path: 'transactions',
+          name: 'Transaction',
+          component: Transaction,
+        },
+        {
+          path: 'addStock',
+          name: 'AddStock',
+          component: AddStock,
+        },
+        {
+          path: 'users',
+          name: 'User',
+          component: User,
+        },
+      ],
+    },
+    {
+      path: '/karyawan/dashboard',
+      name: 'KaryawanDashboard',
+      component: KaryawanDashboard,
+      redirect: { name: 'KaryawanMainDashboard' },
+      children: [
+        {
+          path: '',
+          name: 'KaryawanMainDashboard',
+          component: MainDashboard,
+        },
+        {
+          path: 'products',
+          name: 'KaryawanInventaris',
+          component: Inventaris,
+        },
+        {
+          path: 'transactions',
+          name: 'KaryawanTransaction',
+          component: Transaction,
+        },
+        {
+          path: 'addStock',
+          name: 'KaryawanAddStock',
+          component: AddStock,
+        },
+      ],
+    },
+  ];
+  
 
 const router = createRouter({
     history: createWebHistory(),

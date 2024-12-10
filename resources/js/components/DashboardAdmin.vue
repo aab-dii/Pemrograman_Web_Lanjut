@@ -6,22 +6,22 @@
           <span>TOKO DEWI</span>
         </div>
         <nav>
-          <router-link to="/dashboard" class="nav-link" active-class="active">
+          <router-link to="/admin/dashboard" class="nav-link" active-class="active">
             <i class="fas fa-home"></i> Dashboard
           </router-link>
-          <router-link to="/dashboard/products" class="nav-link" active-class="active">
+          <router-link to="/admin/dashboard/products" class="nav-link" active-class="active">
             <i class="fas fa-box"></i> Inventaris
           </router-link>
-          <router-link to="/dashboard/transactions" class="nav-link" active-class="active">
+          <router-link to="/admin/dashboard/transactions" class="nav-link" active-class="active">
             <i class="fas fa-history"></i> Riwayat Transaksi
           </router-link>
-          <router-link to="addStock" class="nav-link" active-class="active">
+          <router-link to="/admin/dashboard/addStock" class="nav-link" active-class="active">
             <i class="fas fa-plus-circle"></i> Tambah Stok
           </router-link>
-          <router-link to="/confirm-transaction" class="nav-link" active-class="active">
+          <router-link to="/admin/dashboard/confirm-transaction" class="nav-link" active-class="active">
             <i class="fas fa-exchange-alt"></i> Transaksi
           </router-link>
-          <router-link to="/dashboard/users" class="nav-link" active-class="active">
+          <router-link to="/admin/dashboard/users" class="nav-link" active-class="active">
             <i class="fas fa-store"></i> Manage User
           </router-link>
         </nav>
@@ -56,26 +56,20 @@
   export default {
     name: 'DashboardLayout', // Nama yang direkomendasikan
     methods: {
-  async handleLogout() { // Add async here
-    this.loading = true;
-    this.error = null;
-    try {
-      const response = await axios.post('http://localhost:8000/api/logout', {
-        email: '',
-        password: '',
-      });
-      if (response.data.success) {
-        // Redirect to login page
-        this.$router.push({ name: 'login' }); // Use a named route for redirection
-      } else {
-        this.error = response.data.message || 'Login failed, try again!';
-      }
-    } catch (err) {
-      this.error = err.response?.data?.message || 'An error occurred. Please try again!';
-    } finally {
-      this.loading = false;
+
+      handleLogout() {
+      // Clear local data (e.g., token or user information)
+      localStorage.clear(); // or sessionStorage if you use session
+      console.log("Local data cleared!");
+
+      // Redirect to the login page or homepage
+      this.$router.push({ name: 'LogPage' }); // or to the homepage route if necessary
+            // Prevent back navigation (replace the history state so the user cannot go back)
+      window.history.pushState(null, '', window.location.href);
+      window.onpopstate = function () {
+        window.history.go(1); // Forcing the browser to go forward, preventing backward navigation
+      };
     }
-  }
 }
   }
   </script>

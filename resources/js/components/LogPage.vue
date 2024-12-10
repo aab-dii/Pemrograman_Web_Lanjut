@@ -90,15 +90,25 @@ export default {
       console.log(`User logged in with role: ${userRole}`);
 
       // Redirect berdasarkan role
+      // if (userRole === 'admin') {
+      //   this.$router.push({ name: 'dashboard' });
+      //   console.log("keadmin")
+      // } else if (userRole === 'karyawan') {
+      //   this.$router.push({ name: 'KaryawanDashboard' });
+      //   console.log("kekaryawan")
+      // } else {
+      //   throw new Error('Role tidak valid. Tidak dapat mengarahkan ke dashboard.');
+      // }
       if (userRole === 'admin') {
-        this.$router.push({ name: 'dashboard' });
-        console.log("keadmin")
-      } else if (userRole === 'karyawan') {
-        this.$router.push({ name: 'KaryawanDashboard' });
-        console.log("kekaryawan")
-      } else {
-        throw new Error('Role tidak valid. Tidak dapat mengarahkan ke dashboard.');
-      }
+  this.$router.push({ path: '/admin/dashboard' });
+  console.log('keadmin');
+} else if (userRole === 'karyawan') {
+  this.$router.push({ path: '/karyawan/dashboard' });
+  console.log('kekaryawan');
+} else {
+  throw new Error('Role tidak valid. Tidak dapat mengarahkan ke dashboard.');
+}
+
     } else {
       this.error = response.data.message || 'Login gagal, coba lagi!';
     }

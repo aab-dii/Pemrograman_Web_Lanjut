@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="dashboard-overview">
     <section class="product-overview">
       <h2>Keseluruhan Produk</h2>
@@ -21,13 +21,6 @@
         </div>
       </div>
     </section>
-    
-    <!-- <section class="chart">
-      <h2>Barang Masuk & Barang Terjual</h2>
-      <div>
-        <BarChart :chartData="chartData" />
-      </div>
-    </section> -->
     
     <div class="bottom-sections">
       <section class="best-sellers">
@@ -65,9 +58,156 @@
       </section>
     </div>
   </div>
+</template> -->
+
+<template>
+  <div class="dashboard-overview">
+    <section class="product-overview">
+      <h2>Keseluruhan Produk</h2>
+      <div class="stats">
+        <div class="stat-item">
+          <h3 class="total">Total Produk</h3>
+          <p>{{ totalProducts }}</p>
+        </div>
+        <div class="stat-item">
+          <h3 class="stok_sedikit">Stok Sedikit</h3>
+          <p>{{ lowStock.length }}</p>
+        </div>
+        <div class="stat-item">
+          <h3 class="stok_habis">Stok Habis</h3>
+          <p>{{ outOfStockProducts }}</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bottom-sections">
+      <section class="best-sellers">
+        <h2>Produk Terlaris <router-link class="lihat_semua" to="/products">Lihat Semua</router-link></h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Nama</th>
+              <th>Jumlah Terjual</th>
+              <th>Stok</th>
+              <th>Harga</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="product in bestSellers" :key="product.id">
+              <td>{{ product.name }}</td>
+              <td>{{ product.total_terjual }}</td>
+              <td>{{ product.stock }}</td>
+              <td>{{ product.price }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="low-stock">
+        <h2>Stok Yang Sedikit <router-link class="lihat_semua" to="/products">Lihat Semua</router-link></h2>
+        <div v-for="product in lowStock" :key="product.id" class="low-stock-item">
+          <img :src="`http://localhost:8000/storage/products/${product.image}`" :alt="product.name" />
+          <div>
+            <h3>{{ product.name }}</h3>
+            <p>Stok Tersisa: {{ product.stock }} Packet</p>
+          </div>
+          <span class="low-tag">Low</span>
+        </div>
+      </section>
+    </div>
+  </div>
 </template>
 
+
+
 <script>
+import axios from 'axios';
+import BarChart from './BarChart.vue';
+
+export default {
+  name: 'DashboardOverview',
+  components: {
+    BarChart
+  },
+  data() {
+    return {
+      chartData: {
+        // Data untuk grafik
+      },
+      bestSellers: [],
+      lowStock: [],
+      totalPenjualan: 0,
+      totalProducts: 0, // Menyimpan total produk
+      outOfStockProducts: 0 // Menyimpan jumlah produk dengan stok 0
+    };
+  },
+  mounted() {
+    this.fetchLowStock();
+    this.fetchBestSellers();
+    this.fetchTotalPenjualan();
+    this.fetchTotalProducts(); // Tambahkan panggilan untuk fetchTotalProducts
+    this.fetchOutOfStockProducts(); // Tambahkan panggilan untuk fetchOutOfStockProducts
+  },
+  methods: {
+    fetchLowStock() {
+      axios.get('http://localhost:8000/api/low-stock')
+        .then(response => {
+          this.lowStock = response.data;
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.error("There was an error fetching low stock data:", error);
+        });
+    },
+    fetchBestSellers() {
+      axios.get('http://localhost:8000/api/best-sellers')
+        .then(response => {
+          this.bestSellers = response.data;
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.error("There was an error fetching best sellers data:", error);
+        });
+    },
+    fetchTotalPenjualan() {
+      axios.get('http://localhost:8000/api/total-penjualan')
+        .then(response => {
+          this.totalPenjualan = response.data[0].total_penjualan;
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.error("There was an error fetching total penjualan data:", error);
+        });
+    },
+    fetchTotalProducts() {
+      axios.get('http://localhost:8000/api/total-products')
+        .then(response => {
+          this.totalProducts = response.data[0].total_products;
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.error("There was an error fetching total products data:", error);
+        });
+    },
+    fetchOutOfStockProducts() {
+      axios.get('http://localhost:8000/api/out-of-stock-products')
+        .then(response => {
+          this.outOfStockProducts = response.data[0].out_of_stock_products;
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.error("There was an error fetching out of stock products data:", error);
+        });
+    }
+  }
+}
+</script>
+
+
+
+
+
+<!-- <script>
 import BarChart from './BarChart.vue';
 import lowStockImage1 from '@/assets/image 2.png';
 import lowStockImage2 from '@/assets/image 7.png';
@@ -95,7 +235,7 @@ export default {
     };
   }
 }
-</script>
+</script> -->
 
 <style scoped>
 /* Salin style yang berkaitan dengan section-section di bawah ini */
