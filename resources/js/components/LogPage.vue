@@ -76,6 +76,7 @@ export default {
       const userRole = response.data.role;
       const userEmail = response.data.email;
       const id = response.data.id;
+      const name = response.data.name;
 
       if (!token || !userRole) {
         throw new Error('Token atau role tidak ditemukan dalam respons.');
@@ -85,6 +86,7 @@ export default {
       localStorage.setItem('token', token);
       localStorage.setItem('email', userEmail);
       localStorage.setItem('id', id);
+      localStorage.setItem('name', name);
 
       // Log user role untuk debugging
       console.log(`User logged in with role: ${userRole}`);
